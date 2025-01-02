@@ -1,0 +1,50 @@
+trigger:
+  - main  # Triggers the pipeline when changes are made to the main branch of the GitHub repository.
+
+pool:
+  vmImage: 'ubuntu-latest'  # Use an Ubuntu-based agent for the pipeline.
+
+variables:
+  dockerImageName: 'kk2467/python:3.13'  # Name of the Docker image.
+  dockerRegistryConnection: 'DemoLTIdocker'  # Name of the Docker Hub service connection in Azure DevOps.
+  azureSubscription: 'DemoLTI'  # Azure Service connection name.
+  appName: 'DemoLTI'  # Azure App Service name.
+  resourceGroup: 'DemoLTI_group'  # Azure Resource Group.
+  azureRegion: 'Canada Central'  # Azure region (adjust based on your location).
+
+steps:
+  # Step 1: Checkout code from GitHub
+  - checkout: https://github.com/Keshav2kumar/pipelines-javascript-docker.git  # Replace with your GitHub repo URL.
+
+  # Step 2: Build Docker Image
+  - script: |
+      docker build -t $(dockerRegistryConnection).docker.io/$(dockerImageName):$(Build.BuildId) .
+    displayName: 'Build Docker Image'
+
+  # Step 3: Log in to Docker Hub
+  - task: Docker@2
+    inputs:
+      containerRegistry: $(dockerRegistryConnection)  # Use the Docker service connection you created.
+      command: 'login'
+      displayName: 'Login to Docker Hub'
+
+  # Step 4: Push the Docker Image to Docker Hub
+  - task: Docker@2
+    inputs:
+      containerRegistry: $(dockerRegistryConnection)
+      repository: $(dockerImageName)
+      command: 'push'
+      tags: |
+        $(Build.BuildId)
+        latest
+    displayName: 'Push Docker Image to Docker Hub'
+
+  # Step 5: Deploy the Docker Image to Azure App Service
+  - task: AzureWebAppContainer@1
+    inputs:
+      azureSubscription: $(azureSubscription)  # Azure service connection.
+      appName: $(appName)  # Azure App Service name.
+      resourceGroupName: $(resourceGroup)  # Azure resource group.
+      imageName: $(dockerRegistryConnection).docker.io/$(dockerImageName):$(Build.BuildId)  # Docker image from Docker Hub.
+      tag: 'latest'  # Use the 'latest' tag for the image deployment.
+    displayName: 'Deploy Docker Image to Azure App Service'
