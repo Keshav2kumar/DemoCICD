@@ -1,16 +1,16 @@
-//const express = require('express');
-//const app = express();
-//const port = process.env.PORT || 80;
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 80;
 
-//console.log("Starting the server...");
+console.log("Starting the server...");
 
 // Middleware to parse form data
-//app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
-//app.get('/', (req, res) => {
+app.get('/', (req, res) => {
   //console.log("Request received on root endpoint");
 
- /* const formHtml = `
+ const formHtml = `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -60,41 +60,4 @@ app.post('/submit', (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
-});
-*/
-
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-
-// Initialize app
-const app = express();
-
-// Middleware
-app.use(cors());
-app.use(bodyParser.json());
-
-// POST route for handling form submission
-app.post('/submit', (req, res) => {
-  const { name, email, message } = req.body;
-
-  // Simulate a successful response
-  if (name && email && message) {
-    return res.json({
-      message: "Data submitted successfully!",
-      data: { name, email, message }
-    });
-  }
-
-  // Error if any required fields are missing
-  return res.status(400).json({
-    message: "Please fill in all fields."
-  });
-});
-
-// Start the server
-//process.env.port || 80
-var port = 3000;
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
 });
