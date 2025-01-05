@@ -93,8 +93,8 @@ app.post('/submit', (req, res) => {
 });
 
 // Start the server
-process.env.port || 80
-//const port = 3000;
+//process.env.port || 80
+var port = 3000;
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
