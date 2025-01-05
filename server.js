@@ -4,51 +4,41 @@ const port = process.env.PORT || 80;
 
 console.log("Starting the server...");
 
-// Middleware to log all requests
-app.use((req, res, next) => {
-  console.log(`[INFO] Request received: ${req.method} ${req.originalUrl}`);
-  next(); // Proceed to the next middleware or route handler
-});
+// Middleware to parse form data
+app.use(express.urlencoded({ extended: true }));
 
-// Home route
 app.get('/', (req, res) => {
   console.log("Request received on root endpoint");
-  res.send('Hello, World! Welcome to the Node.js app deployed to Azure!');
+
+  const formHtml = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Node.js App</title>
+    </head>
+    <body>
+      <h1>Hello, World! Welcome to the Node.js app deployed to Azure!</h1>
+      
+      <form action="/submit" method="POST">
+        <label for="name">Enter your name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+        <input type="submit" value="Submit">
+      </form>
+    </body>
+    </html>
+  `;
+
+  res.send(formHtml); // Send the form as HTML
 });
 
-// About route with dynamic data
-app.get('/about', (req, res) => {
-  console.log("Request received on /about endpoint");
-
-  const appInfo = {
-    appName: "MyNodeApp",
-    version: "1.0.0",
-    environment: process.env.NODE_ENV || "development"
-  };
-
-  res.json(appInfo);
+app.post('/submit', (req, res) => {
+  const userName = req.body.name; // Capture the name from the form
+  console.log(`Form submitted! Name: ${userName}`);
+  res.send(`Thank you for submitting the form, ${userName}!`);
 });
 
-// Error handling route
-app.get('/error', (req, res) => {
-  console.log("Request received on /error endpoint");
-
-  // Simulate an error for testing
-  try {
-    throw new Error("This is a simulated error");
-  } catch (error) {
-    console.error("Error occurred:", error.message);
-    res.status(500).send("Something went wrong!");
-  }
-});
-
-// 404 Route for undefined paths
-app.use((req, res) => {
-  console.log(`404 Not Found: ${req.originalUrl}`);
-  res.status(404).send('Oops! Page not found.');
-});
-
-// Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
