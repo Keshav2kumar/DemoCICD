@@ -29,18 +29,18 @@ app.get('/', (req, res) => {
 
 	  <form action="/submit" method="POST">
         <label for="username">Enter your Email Address:</label><br>
-        <input type="text" id="username" name="username" required><br><br>
+        <input type="text" id="username" name="name" required><br><br>
         <input type="submit" value="Submit">
       </form>
 
 	  <form action="/submit" method="POST">
         <label for="Contact">Enter your Contact:</label><br>
-        <input type="text" id="Contact" name="Conatct" required><br><br>
+        <input type="text" id="Contact" name="name" required><br><br>
         <input type="submit" value="Submit">
       </form>
       <form action="/submit" method="POST">
         <label for="homeaddress">Enter your Home Address:</label><br>
-        <input type="text" id="homeaddress" name="homeaddress" required><br><br>
+        <input type="text" id="homeaddress" name="name" required><br><br>
         <input type="submit" value="Submit">
       </form>
 
