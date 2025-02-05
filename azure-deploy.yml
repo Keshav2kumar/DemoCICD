@@ -19,6 +19,7 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+           auth-type: "spn" 
 
       # Step 3: Log in to Azure Container Registry (ACR)
       - name: Log in to ACR
