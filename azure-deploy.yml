@@ -16,14 +16,9 @@ jobs:
 
       # Step 2: Log in to Azure
       - name: Log in to Azure
-        uses: azure/login@v1
+        uses: azure/login@v3
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}  # Ensure this secret is properly defined
-          enable-AzPSSession: false
-          environment: azurecloud  # Ensure this is the correct environment
-          allow-no-subscriptions: false
-          audience: api://AzureADTokenExchange
-          auth-type: SERVICE_PRINCIPAL  # Optional, should work without it
+          creds: ${{ secrets.AZURE_CREDENTIALS }} 
 
       # Step 3: Log in to Azure Container Registry (ACR)
       - name: Log in to ACR
