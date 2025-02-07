@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
       <title>Node.js App</title>
     </head>
     <body>
-      <h1>Hello, World! Welcome to the Node.js app deployed to Azure!</h1>
+      <h1>Hello, Mentor's! Welcome to the Node.js app deployed to Azure!</h1>
       
       <form action="/submit" method="POST">
         <label for="name">Enter your name:</label><br>
