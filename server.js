@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Node.js App</title>
+      <title> Demo CICD </title>
     </head>
     <body>
       <h1>Hello, Mentor's! Welcome to the Node.js app deployed to Azure!</h1>
@@ -26,13 +26,6 @@ app.get('/', (req, res) => {
         <input type="text" id="name" name="name" required><br><br>
         <input type="submit" value="Submit">
       </form>
-
-	  <form action="/submit" method="POST">
-        <label for="username">Enter your Email Address:</label><br>
-        <input type="text" id="username" name="name" required><br><br>
-        <input type="submit" value="Submit">
-      </form>
-
 	  <form action="/submit" method="POST">
         <label for="Contact">Enter your Contact:</label><br>
         <input type="text" id="Contact" name="name" required><br><br>
@@ -42,9 +35,18 @@ app.get('/', (req, res) => {
         <label for="homeaddress">Enter your Home Address:</label><br>
         <input type="text" id="homeaddress" name="name" required><br><br>
         <input type="submit" value="Submit">
+
+<form action="/submit" method="POST">
+        <label for="username">Enter your Email Address:</label><br>
+        <input type="text" id="username" name="name" required><br><br>
+        <input type="submit" value="Submit">
       </form>
-
-
+     
+ <form action="/submit" method="POST">
+  <label for="user-password">Password:</label>
+  <input type="password" id="user-password" name="password">
+  <input type="submit" value="Submit">
+</form>
     </body>
     </html>
   `;
