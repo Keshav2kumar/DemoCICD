@@ -3,21 +3,21 @@ kind: Deployment
 metadata:
   name: frontend-deployment 
   labels:
-    app: myapp
+    app: DemoCICD
     tier: frontend
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: myapp
+      app: DemoCICD
       env: production 
   template:
     metadata:
       labels:
-        app: myapp
+        app: DemoCICD
         env: production 
     spec:
       containers:
-      -  name: nginx
-         image: nginx
+      -  name: DemoCICD
+         image: DemoCICD
 
