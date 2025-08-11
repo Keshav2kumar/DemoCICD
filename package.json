@@ -2,7 +2,7 @@
 	  "name": "my_app",
 	    "version": "1.0.0",
 	      "description": "Sample used for container templates",
-	        "author": "Shashank Barsin",
+	        "author": "Keshav Kumar",
 		  "main": "server.js",
 		    "scripts": {
 			        "start": "node server.js"
